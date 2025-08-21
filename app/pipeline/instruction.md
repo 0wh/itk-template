@@ -2,7 +2,7 @@
 
 1. **Learn the basics**
 
-- Go through the [official ITK-Wasm tutorial](https://docs.itk.org/projects/wasm/en/latest/cxx/tutorial/index.html) (C++ → Wasm).
+- Go through the [official ITK-Wasm tutorial](https://docs.itk.org/projects/wasm/en/latest/cxx/tutorial/index.html) (`C/C++` → `WebAssembly`).
 
 2. **Implement the pipeline**
 

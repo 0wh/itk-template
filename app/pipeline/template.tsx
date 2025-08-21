@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0
+
 "use client";
 
 import Instruction from "@/app/pipeline/instruction.md";
