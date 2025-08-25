@@ -27,11 +27,12 @@ export default function Home() {
     const file = e.target.files?.[0];
     if (file) {
       const { image } = await readImage(file);
+      image.name = file.name;
       setItkImage(image);
     }
   }
   return (
-    <div className="font-sans grid items-center justify-items-center min-h-screen p-8 pb-20">
+    <div className="font-sans grid items-center justify-items-center min-h-screen p-8 pb-0">
       <main className="flex items-center justify-center h-100">
         {itkImage ? (
           <div className="flex justify-center w-100 mt-10">
@@ -73,7 +74,7 @@ export default function Home() {
           <PipelineTemplate itkImage={itkImage} setItkImage={setItkImage} />
         </div>
       </main>
-      <footer className="flex gap-[24px] flex-wrap items-center justify-center">
+      <footer className="flex gap-10 flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://docs.itk.org/projects/wasm/en/latest/"

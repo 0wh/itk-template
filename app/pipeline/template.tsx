@@ -16,18 +16,31 @@ export function PipelineTemplate({
   setItkImage: React.Dispatch<React.SetStateAction<Image | null>>;
 }) {
   const [pipelineIsBusy, setPipelineIsBusy] = useState<boolean>(false);
+  const [pipelineStatus, setPipelineStatus] = useState<string>("");
 
   async function processImage(image: Image | null): Promise<number[]> {
     if (image && !pipelineIsBusy) {
       setPipelineIsBusy(true);
+
       // Implement the itk wasm pipeline here
+      {
+        // Write a log message in the browser console (Inspect → Console tab)
+        console.log("Starting image processing", image.name);
+        // Show status message on the page
+        setPipelineStatus("Processing");
 
-      // Simulate a 2-second processing delay (replace with your implementation)
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+        // Simulate a 2-second processing delay (replace with your implementation)
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const outImage: Image = image;
 
-      // Get the output image with thresholds applied
-      const outImage: Image = image;
-      setItkImage(outImage);
+        console.log("Image processing complete");
+        setPipelineStatus("Successful");
+
+        // Load the output image (with thresholds applied)
+        setItkImage(outImage);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setPipelineIsBusy(false);
     }
     // Return thresholds computed by Multi-Otsu
@@ -43,17 +56,10 @@ export function PipelineTemplate({
           await processImage(itkImage);
         }}
       >
-        {pipelineIsBusy ? (
-          <>
-            <Loader className="h-4 w-4 mr-2" />
-            Processing
-          </>
-        ) : (
-          <>
-            <Puzzle className="h-4 w-4 mr-2" />
-            Start processing
-          </>
-        )}
+        <Puzzle
+          className={`h-4 w-4 mr-2 ${pipelineIsBusy && "mt-1 animate-bounce"}`}
+        />
+        {pipelineIsBusy ? pipelineStatus : "Start processing"}
       </button>
     </>
   );
